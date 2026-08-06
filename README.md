@@ -1,30 +1,31 @@
 # QR Generator
 
-Ein kompakter Python Generator für statische QR Codes. Jede Zieladresse wird
-direkt im Code gespeichert. Es gibt keinen Weiterleitungsdienst, kein Tracking
-und keine Werbung.
+English | [Deutsch](README.de.md)
 
-## Überblick
+A compact Python generator for static QR codes. Each target address is stored
+directly in the code. There is no redirect service, tracking, or advertising.
 
-Der Generator erstellt QR Codes für vollständige HTTP und HTTPS Adressen. Die
-Ausgabe ist als PNG oder SVG möglich. PNG Dateien können mit einem weißen oder
-transparenten Hintergrund erzeugt werden.
+## Overview
 
-Ein erzeugter QR Code besitzt kein Ablaufdatum. Er funktioniert, solange die
-gespeicherte Zieladresse erreichbar bleibt.
+The generator creates QR codes for complete HTTP and HTTPS addresses. Output is
+available as PNG or SVG. PNG files can use either a white or transparent
+background.
 
-## Funktionen
+A generated QR code does not expire. It remains functional as long as the
+stored target address is available.
 
-1. Direkte Speicherung der Zieladresse
-2. Ausgabe als PNG oder SVG
-3. Optional transparenter PNG Hintergrund
-4. Hohe Fehlerkorrektur für zuverlässiges Scannen
-5. Validierung vollständiger HTTP und HTTPS Adressen
-6. Schutz vor unbeabsichtigtem Überschreiben vorhandener Dateien
+## Features
 
-## Voraussetzungen
+1. Direct storage of the target address
+2. PNG and SVG output
+3. Optional transparent PNG background
+4. High error correction for reliable scanning
+5. Validation of complete HTTP and HTTPS addresses
+6. Protection against accidental overwriting of existing files
 
-Python 3.10 oder neuer wird empfohlen.
+## Requirements
+
+Python 3.10 or newer is recommended.
 
 ## Installation
 
@@ -34,68 +35,65 @@ python -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-## Verwendung
+## Usage
 
-### Interaktiver Start
+### Interactive mode
 
 ```powershell
 python .\qr_generator.py https://example.com
 ```
 
-Bei einer PNG Ausgabe fragt das Programm, ob der Hintergrund transparent sein
-soll.
+For PNG output, the program asks whether the background should be transparent.
 
-### Transparentes PNG
-
-```powershell
-python .\qr_generator.py https://example.com --transparent true -o beispiel_qr.png
-```
-
-### PNG mit weißem Hintergrund
+### Transparent PNG
 
 ```powershell
-python .\qr_generator.py https://example.com --transparent false -o beispiel_qr.png
+python .\qr_generator.py https://example.com --transparent true -o example_qr.png
 ```
 
-### Skalierbares SVG
+### PNG with a white background
 
 ```powershell
-python .\qr_generator.py https://example.com -f svg -o beispiel_qr.svg
+python .\qr_generator.py https://example.com --transparent false -o example_qr.png
 ```
 
-### Vorhandene Datei ersetzen
+### Scalable SVG
 
 ```powershell
-python .\qr_generator.py https://example.com -o beispiel_qr.png --force
+python .\qr_generator.py https://example.com -f svg -o example_qr.svg
 ```
 
-## Datenschutz
+### Replace an existing file
 
-Die Dokumentation und der Quellcode verwenden ausschließlich `example.com` als
-Platzhalter. Reale Adressen müssen nur beim lokalen Programmaufruf angegeben
-werden.
+```powershell
+python .\qr_generator.py https://example.com -o example_qr.png --force
+```
 
-Erzeugte PNG und SVG Dateien werden durch `.gitignore` nicht in Git Commits
-aufgenommen. Vor jeder Veröffentlichung sollte der geplante Commit trotzdem mit
-`git show` geprüft werden.
+## Privacy
 
-## Scanqualität
+The documentation and source code use only `example.com` as a placeholder.
+Real addresses are provided only when running the program locally.
 
-Für eine zuverlässige Erkennung sollte der QR Code dunkel dargestellt werden
-und auf einem ruhigen, hellen Hintergrund stehen. Bei transparenten PNG Dateien
-muss das spätere Layout ausreichend Kontrast bieten. Der freie Rand um den Code
-sollte erhalten bleiben.
+Generated PNG and SVG files are excluded from Git commits by `.gitignore`.
+Before publishing, review the planned commit with `git show`.
 
-## Projektstruktur
+## Scanning reliability
+
+For reliable recognition, display the QR code in a dark color on a calm, light
+background. Transparent PNG files require sufficient contrast in the final
+layout. Preserve the clear margin around the code.
+
+## Project structure
 
 ```text
 qr_generator.py
 requirements.txt
 README.md
+README.de.md
 .gitignore
 ```
 
-## Lizenz
+## License
 
-Dieses Projekt steht unter der MIT License. Die vollständigen Bedingungen stehen
-in der Datei [LICENSE](LICENSE).
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for the
+full terms.

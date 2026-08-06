@@ -97,5 +97,5 @@ README.md
 
 ## Lizenz
 
-Dieses Projekt enthält derzeit keine Lizenz. Vor einer öffentlichen Freigabe
-sollte eine passende Lizenz ausgewählt und ergänzt werden.
+Dieses Projekt steht unter der MIT License. Die vollständigen Bedingungen stehen
+in der Datei [LICENSE](LICENSE).

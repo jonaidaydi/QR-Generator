@@ -5,6 +5,8 @@ __pycache__/
 *.svg
 !static/icons/
 !static/icons/icon-*.png
+!docs/screenshots/
+!docs/screenshots/*.png
 __pycache__/
 .pytest_cache/
 

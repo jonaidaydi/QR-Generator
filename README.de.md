@@ -6,6 +6,12 @@ Ein kompakter Python Generator für statische QR Codes. Jede Zieladresse wird
 direkt im Code gespeichert. Es gibt keinen Weiterleitungsdienst, kein Tracking
 und keine Werbung.
 
+## Vorschau
+
+![Weboberfläche des QR Generators](docs/screenshots/qr-generator-preview.png)
+
+![Farbanpassung im QR Generator](docs/screenshots/qr-generator-color-preview.png)
+
 ## Überblick
 
 Der Generator erstellt QR Codes für vollständige HTTP und HTTPS Adressen. Die
@@ -31,7 +37,7 @@ gespeicherte Zieladresse erreichbar bleibt.
 
 Python 3.10 oder neuer wird empfohlen.
 
-## Installation
+## Schnellstart
 
 ```powershell
 python -m venv .venv
@@ -66,6 +72,9 @@ python -m pip install -r requirements-dev.txt
 python -m pytest -q
 ```
 
+<details>
+<summary>Optionale Verwendung über die Kommandozeile</summary>
+
 ### Interaktiver Start
 
 ```powershell
@@ -99,6 +108,8 @@ python .\qr_generator.py https://example.com -f svg -o beispiel_qr.svg
 python .\qr_generator.py https://example.com -o beispiel_qr.png --force
 ```
 
+</details>
+
 ## Datenschutz
 
 Die Dokumentation und der Quellcode verwenden ausschließlich `example.com` als
@@ -125,6 +136,7 @@ templates/
 static/
 tools/
 tests/
+docs/
 requirements.txt
 requirements-dev.txt
 README.md

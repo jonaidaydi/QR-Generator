@@ -10,21 +10,19 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='icons/icon-180.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=5">
-    <script src="{{ url_for('static', filename='app.js') }}?v=5" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=6">
+    <script src="{{ url_for('static', filename='app.js') }}?v=6" defer></script>
   </head>
   <body>
+    <canvas id="particle-background" aria-hidden="true"></canvas>
     <main class="app-shell">
       <header class="page-header">
         <section class="intro" aria-labelledby="page-title">
-          <p class="eyebrow">LOCAL QR TOOL</p>
+          <div class="brand-line">
+            <img src="{{ url_for('static', filename='icons/icon-32.png') }}" alt="" width="32" height="32">
+            <p class="eyebrow">QR CODE GENERATOR</p>
+          </div>
           <h1 id="page-title">Turn any link into a QR code.</h1>
-          <p class="lede">Direct, private and permanent. No tracking, advertising or redirect service.</p>
-          <ul class="privacy-list" aria-label="Privacy features">
-            <li>Runs on your computer</li>
-            <li>Encodes the URL directly</li>
-            <li>Exports a ready to use PNG</li>
-          </ul>
         </section>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
           <span class="theme-icon" aria-hidden="true"></span>
@@ -55,13 +53,13 @@
               </div>
 
               <div class="color-tool">
-                <label class="picker-label" for="color-picker">Color wheel</label>
-                <div class="color-wheel">
-                  <input id="color-picker" class="color-picker" type="color" value="#000000"
-                         aria-label="Color wheel">
-                  <span class="wheel-center" aria-hidden="true"></span>
+                <span id="color-wheel-label" class="picker-label">Color wheel</span>
+                <div class="color-wheel-control">
+                  <canvas id="color-picker" class="color-picker" width="240" height="240" tabindex="0" role="slider"
+                          aria-labelledby="color-wheel-label" aria-valuetext="#000000"></canvas>
+                  <span id="wheel-marker" class="wheel-marker" aria-hidden="true"></span>
                 </div>
-                <p>Select the wheel to open the full color spectrum.</p>
+                <p>Drag across the wheel to choose hue and saturation.</p>
               </div>
 
               <div class="preset-row" aria-label="Quick color presets">
@@ -108,6 +106,10 @@
           </div>
         </form>
       </section>
+      <footer class="app-footer">
+        <span>Direct. Private. Permanent.</span>
+        <span>Runs locally with no tracking, advertising or redirects.</span>
+      </footer>
     </main>
   </body>
 </html>

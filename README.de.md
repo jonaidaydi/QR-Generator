@@ -35,6 +35,8 @@ gespeicherte Zieladresse erreichbar bleibt.
 8. PNG Download mit dem festen Dateinamen `qr-code.png`
 9. Transparentes Favicon, Apple Touch Icon und PWA Icons
 10. Dauerhaft gespeicherter heller und dunkler Darstellungsmodus
+11. Animierter monochromer Partikelhintergrund
+12. Interaktives Farbrad mit Maus und Tastatursteuerung
 
 ## Voraussetzungen
 

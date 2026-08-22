@@ -34,6 +34,8 @@ stored target address is available.
 8. PNG download with a fixed `qr-code.png` filename
 9. Transparent favicon, Apple touch icon, and PWA icons
 10. Persistent light and dark interface themes
+11. Animated monochrome particle background
+12. Interactive color wheel with pointer and keyboard controls
 
 ## Requirements
 

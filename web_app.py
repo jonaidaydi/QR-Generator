@@ -16,10 +16,19 @@ app = Flask(__name__)
 HEX_COLOR = re.compile(r"^#[0-9A-Fa-f]{6}$")
 
 
-def is_valid_url(value: str) -> bool:
-    """Return true for complete HTTP and HTTPS URLs."""
-    parsed = urlsplit(value)
-    return parsed.scheme.lower() in {"http", "https"} and bool(parsed.netloc)
+def normalize_url(value: str) -> str:
+    """Add HTTPS when needed and validate the resulting web address."""
+    url = value.strip()
+    if not url:
+        raise ValueError("Enter a web address.")
+
+    if not re.match(r"^[A-Za-z][A-Za-z0-9+.-]*://", url):
+        url = f"https://{url.lstrip('/')}"
+
+    parsed = urlsplit(url)
+    if parsed.scheme.lower() not in {"http", "https"} or not parsed.netloc:
+        raise ValueError("Enter a valid web address.")
+    return url
 
 
 @app.get("/")
@@ -30,12 +39,14 @@ def index():
 @app.post("/api/qr")
 def create_qr():
     data = request.get_json(silent=True) or {}
-    url = str(data.get("url", "")).strip()
+    raw_url = str(data.get("url", ""))
     color = str(data.get("color", "#000000")).strip()
-    transparent = bool(data.get("transparent", False))
+    transparent = bool(data.get("transparent", True))
 
-    if not is_valid_url(url):
-        return jsonify(error="Enter a complete URL beginning with http:// or https://."), 400
+    try:
+        url = normalize_url(raw_url)
+    except ValueError as error:
+        return jsonify(error=str(error)), 400
     if not HEX_COLOR.fullmatch(color):
         return jsonify(error="Enter a valid six digit hex color."), 400
 

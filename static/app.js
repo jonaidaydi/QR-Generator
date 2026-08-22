@@ -57,21 +57,30 @@ function setMessage(text, state = "neutral") {
   message.dataset.state = state;
 }
 
+function normalizeUrl(value) {
+  const trimmed = value.trim();
+  if (!trimmed) throw new Error("Enter a web address.");
+
+  const candidate = /^[A-Za-z][A-Za-z0-9+.-]*:\/\//.test(trimmed)
+    ? trimmed
+    : `https://${trimmed.replace(/^\/+/, "")}`;
+  const parsed = new URL(candidate);
+  if (!["http:", "https:"].includes(parsed.protocol) || !parsed.hostname) {
+    throw new Error("Enter a valid web address.");
+  }
+  return candidate;
+}
+
 async function generateQr() {
-  const url = urlInput.value.trim();
-  let parsed;
+  let url;
   try {
-    parsed = new URL(url);
-  } catch {
-    setMessage("Enter a complete URL beginning with http:// or https://.", "error");
+    url = normalizeUrl(urlInput.value);
+  } catch (error) {
+    setMessage(error.message, "error");
     urlInput.focus();
     return;
   }
-  if (!["http:", "https:"].includes(parsed.protocol)) {
-    setMessage("Only HTTP and HTTPS addresses are supported.", "error");
-    urlInput.focus();
-    return;
-  }
+  urlInput.value = url;
 
   setMessage("Generating QR code...", "loading");
   saveButton.disabled = true;
@@ -127,7 +136,7 @@ hexInput.addEventListener("input", () => {
 presets.forEach((preset) => {
   preset.addEventListener("click", () => {
     applyColor(preset.dataset.color);
-    transparentInput.checked = preset.dataset.color === "#FFFFFF";
+    if (preset.dataset.color === "#FFFFFF") transparentInput.checked = true;
   });
 });
 

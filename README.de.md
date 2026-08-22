@@ -48,9 +48,11 @@ Die lokale Web App starten:
 python .\web_app.py
 ```
 
-Im Browser `http://127.0.0.1:5000` öffnen. Eine vollständige URL eingeben, die
-QR Farbe über das Spektrum, RGB Werte, den Hex Farbcode oder die Presets wählen
-und **Generate** auswählen. Mit **Save QR code** wird `qr-code.png` gespeichert.
+Im Browser `http://127.0.0.1:5000` öffnen. Eine Webadresse eingeben, die QR Farbe
+über das Spektrum, RGB Werte, den Hex Farbcode oder die Presets wählen und
+**Generate** auswählen. Mit **Save QR code** wird `qr-code.png` gespeichert.
+Wenn kein Protokoll angegeben ist, ergänzt die App automatisch `https://`.
+Transparente Ausgabe ist standardmäßig aktiviert.
 
 Die Weboberfläche läuft lokal. Eingegebene URLs werden nicht an einen externen
 QR Dienst gesendet.

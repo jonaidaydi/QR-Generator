@@ -11,6 +11,8 @@ directly in the code. There is no redirect service, tracking, or advertising.
 
 ![QR Generator color customization](docs/screenshots/qr-generator-color-preview.png)
 
+![QR Generator dark mode](docs/screenshots/qr-generator-dark-preview.png)
+
 ## Overview
 
 The generator creates QR codes for complete HTTP and HTTPS addresses. Output is
@@ -31,6 +33,7 @@ stored target address is available.
 7. Local web interface with a live preview and color controls
 8. PNG download with a fixed `qr-code.png` filename
 9. Transparent favicon, Apple touch icon, and PWA icons
+10. Persistent light and dark interface themes
 
 ## Requirements
 

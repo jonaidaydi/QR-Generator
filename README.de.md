@@ -12,6 +12,8 @@ und keine Werbung.
 
 ![Farbanpassung im QR Generator](docs/screenshots/qr-generator-color-preview.png)
 
+![Dark Mode des QR Generators](docs/screenshots/qr-generator-dark-preview.png)
+
 ## Überblick
 
 Der Generator erstellt QR Codes für vollständige HTTP und HTTPS Adressen. Die
@@ -32,6 +34,7 @@ gespeicherte Zieladresse erreichbar bleibt.
 7. Lokale Weboberfläche mit Vorschau und Farbauswahl
 8. PNG Download mit dem festen Dateinamen `qr-code.png`
 9. Transparentes Favicon, Apple Touch Icon und PWA Icons
+10. Dauerhaft gespeicherter heller und dunkler Darstellungsmodus
 
 ## Voraussetzungen
 

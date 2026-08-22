@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 app.jinja_env.auto_reload = True
-APP_VERSION = "1.1.0"
+APP_VERSION = "1.2.0"
 HEX_COLOR = re.compile(r"^#[0-9A-Fa-f]{6}$")
 
 

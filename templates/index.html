@@ -10,21 +10,27 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='icons/icon-32.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='icons/icon-180.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=4">
-    <script src="{{ url_for('static', filename='app.js') }}?v=4" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}?v=5">
+    <script src="{{ url_for('static', filename='app.js') }}?v=5" defer></script>
   </head>
   <body>
     <main class="app-shell">
-      <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow">LOCAL QR TOOL</p>
-        <h1 id="page-title">Turn any link into a QR code.</h1>
-        <p class="lede">Direct, private and permanent. No tracking, advertising or redirect service.</p>
-        <ul class="privacy-list" aria-label="Privacy features">
-          <li>Runs on your computer</li>
-          <li>Encodes the URL directly</li>
-          <li>Exports a ready to use PNG</li>
-        </ul>
-      </section>
+      <header class="page-header">
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow">LOCAL QR TOOL</p>
+          <h1 id="page-title">Turn any link into a QR code.</h1>
+          <p class="lede">Direct, private and permanent. No tracking, advertising or redirect service.</p>
+          <ul class="privacy-list" aria-label="Privacy features">
+            <li>Runs on your computer</li>
+            <li>Encodes the URL directly</li>
+            <li>Exports a ready to use PNG</li>
+          </ul>
+        </section>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true"></span>
+          <span id="theme-label">Dark mode</span>
+        </button>
+      </header>
 
       <section class="generator-card" aria-label="QR code generator">
         <form id="qr-form" novalidate>

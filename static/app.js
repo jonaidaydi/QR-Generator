@@ -13,11 +13,40 @@ const preview = document.querySelector("#qr-preview");
 const emptyPreview = document.querySelector("#empty-preview");
 const saveButton = document.querySelector("#save-button");
 const presets = [...document.querySelectorAll(".preset")];
+const themeToggle = document.querySelector("#theme-toggle");
+const themeLabel = document.querySelector("#theme-label");
 
 let currentBlobUrl = null;
 let hasGenerated = false;
 let livePreviewTimer = null;
 let latestRequest = 0;
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.documentElement.dataset.theme = theme;
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+  themeLabel.textContent = isDark ? "Light mode" : "Dark mode";
+}
+
+function initialTheme() {
+  try {
+    const stored = window.localStorage.getItem("qr-generator-theme");
+    if (["light", "dark"].includes(stored)) return stored;
+  } catch {
+    // The interface still works when browser storage is unavailable.
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+themeToggle.addEventListener("click", () => {
+  const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(nextTheme);
+  try {
+    window.localStorage.setItem("qr-generator-theme", nextTheme);
+  } catch {
+    // Theme persistence is optional.
+  }
+});
 
 function clamp(value) {
   return Math.max(0, Math.min(255, Number.parseInt(value, 10) || 0));
@@ -166,4 +195,5 @@ saveButton.addEventListener("click", () => {
 });
 
 transparentInput.checked = true;
+applyTheme(initialTheme());
 applyColor("#000000");

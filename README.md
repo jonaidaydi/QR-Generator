@@ -24,6 +24,7 @@ stored target address is available.
 6. Protection against accidental overwriting of existing files
 7. Local web interface with a live preview and color controls
 8. PNG download with a fixed `qr-code.png` filename
+9. Transparent favicon, Apple touch icon, and PWA icons
 
 ## Requirements
 
@@ -117,6 +118,7 @@ qr_generator.py
 web_app.py
 templates/
 static/
+tools/
 tests/
 requirements.txt
 requirements-dev.txt

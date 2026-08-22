@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *.png
 *.svg
+!static/icons/
+!static/icons/icon-*.png
 __pycache__/
 .pytest_cache/
 

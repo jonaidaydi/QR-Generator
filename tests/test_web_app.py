@@ -1,8 +1,13 @@
 from io import BytesIO
+import json
+from pathlib import Path
 
 from PIL import Image
 
 from web_app import app, normalize_url
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_index_contains_generator_controls():
@@ -30,6 +35,21 @@ def test_responses_disable_browser_cache_and_report_version():
     assert response.json == {"status": "ok", "version": "1.1.0"}
     assert response.headers["Cache-Control"] == "no-store, no-cache, must-revalidate, max-age=0"
     assert response.headers["X-QR-Generator-Version"] == "1.1.0"
+
+
+def test_icon_files_have_exact_sizes_and_transparency():
+    for size in (32, 180, 192, 512):
+        image = Image.open(ROOT / "static" / "icons" / f"icon-{size}.png")
+        assert image.size == (size, size)
+        assert image.mode == "RGBA"
+        assert image.getpixel((0, 0))[3] == 0
+        assert image.getbbox() is not None
+
+
+def test_manifest_references_pwa_icons():
+    manifest = json.loads((ROOT / "static" / "manifest.webmanifest").read_text(encoding="utf-8"))
+    sizes = {icon["sizes"] for icon in manifest["icons"]}
+    assert sizes == {"192x192", "512x512"}
 
 
 def test_api_generates_png_with_requested_color():

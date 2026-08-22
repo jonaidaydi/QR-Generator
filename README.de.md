@@ -25,6 +25,7 @@ gespeicherte Zieladresse erreichbar bleibt.
 6. Schutz vor unbeabsichtigtem Überschreiben vorhandener Dateien
 7. Lokale Weboberfläche mit Vorschau und Farbauswahl
 8. PNG Download mit dem festen Dateinamen `qr-code.png`
+9. Transparentes Favicon, Apple Touch Icon und PWA Icons
 
 ## Voraussetzungen
 
@@ -122,6 +123,7 @@ qr_generator.py
 web_app.py
 templates/
 static/
+tools/
 tests/
 requirements.txt
 requirements-dev.txt

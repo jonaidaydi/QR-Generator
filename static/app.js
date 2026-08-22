@@ -15,6 +15,9 @@ const saveButton = document.querySelector("#save-button");
 const presets = [...document.querySelectorAll(".preset")];
 
 let currentBlobUrl = null;
+let hasGenerated = false;
+let livePreviewTimer = null;
+let latestRequest = 0;
 
 function clamp(value) {
   return Math.max(0, Math.min(255, Number.parseInt(value, 10) || 0));
@@ -50,6 +53,7 @@ function applyColor(hex) {
   presets.forEach((preset) => {
     preset.classList.toggle("is-active", preset.dataset.color === normalized);
   });
+  scheduleLivePreview();
 }
 
 function setMessage(text, state = "neutral") {
@@ -71,19 +75,28 @@ function normalizeUrl(value) {
   return candidate;
 }
 
-async function generateQr() {
+function scheduleLivePreview() {
+  if (!hasGenerated) return;
+  window.clearTimeout(livePreviewTimer);
+  livePreviewTimer = window.setTimeout(() => generateQr({live: true}), 80);
+}
+
+async function generateQr({live = false} = {}) {
   let url;
   try {
     url = normalizeUrl(urlInput.value);
   } catch (error) {
-    setMessage(error.message, "error");
-    urlInput.focus();
+    if (!live) {
+      setMessage(error.message, "error");
+      urlInput.focus();
+    }
     return;
   }
   urlInput.value = url;
 
-  setMessage("Generating QR code...", "loading");
-  saveButton.disabled = true;
+  const requestId = ++latestRequest;
+  setMessage(live ? "Updating preview..." : "Generating QR code...", "loading");
+  if (!live) saveButton.disabled = true;
 
   try {
     const response = await fetch("/api/qr", {
@@ -101,16 +114,18 @@ async function generateQr() {
     }
 
     const blob = await response.blob();
+    if (requestId !== latestRequest) return;
     if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
     currentBlobUrl = URL.createObjectURL(blob);
     preview.src = currentBlobUrl;
     preview.hidden = false;
     emptyPreview.hidden = true;
     previewFrame.classList.toggle("dark-preview", hexInput.value === "#FFFFFF" && transparentInput.checked);
+    hasGenerated = true;
     saveButton.disabled = false;
     setMessage("QR code ready to save.", "success");
   } catch (error) {
-    setMessage(error.message, "error");
+    if (requestId === latestRequest) setMessage(error.message, "error");
   }
 }
 
@@ -139,6 +154,8 @@ presets.forEach((preset) => {
     if (preset.dataset.color === "#FFFFFF") transparentInput.checked = true;
   });
 });
+
+transparentInput.addEventListener("change", scheduleLivePreview);
 
 saveButton.addEventListener("click", () => {
   if (!currentBlobUrl) return;

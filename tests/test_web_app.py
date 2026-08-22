@@ -14,6 +14,14 @@ def test_index_contains_generator_controls():
     assert b'id="transparent" type="checkbox" checked' in response.data
 
 
+def test_frontend_includes_live_preview_updates():
+    client = app.test_client()
+    response = client.get("/static/app.js")
+    assert response.status_code == 200
+    assert b"scheduleLivePreview" in response.data
+    assert b"latestRequest" in response.data
+
+
 def test_api_generates_png_with_requested_color():
     client = app.test_client()
     response = client.post(

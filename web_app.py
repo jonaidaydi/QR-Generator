@@ -13,7 +13,21 @@ from qrcode.constants import ERROR_CORRECT_H
 
 
 app = Flask(__name__)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
+app.jinja_env.auto_reload = True
+APP_VERSION = "1.1.0"
 HEX_COLOR = re.compile(r"^#[0-9A-Fa-f]{6}$")
+
+
+@app.after_request
+def prevent_stale_assets(response):
+    """Prevent mixed frontend versions while the local app is being updated."""
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    response.headers["X-QR-Generator-Version"] = APP_VERSION
+    return response
 
 
 def normalize_url(value: str) -> str:
@@ -34,6 +48,11 @@ def normalize_url(value: str) -> str:
 @app.get("/")
 def index():
     return render_template("index.html")
+
+
+@app.get("/api/health")
+def health():
+    return jsonify(status="ok", version=APP_VERSION)
 
 
 @app.post("/api/qr")

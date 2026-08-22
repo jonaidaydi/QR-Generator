@@ -20,6 +20,16 @@ def test_frontend_includes_live_preview_updates():
     assert response.status_code == 200
     assert b"scheduleLivePreview" in response.data
     assert b"latestRequest" in response.data
+    assert b"transparentInput.checked = true" in response.data
+
+
+def test_responses_disable_browser_cache_and_report_version():
+    client = app.test_client()
+    response = client.get("/api/health")
+    assert response.status_code == 200
+    assert response.json == {"status": "ok", "version": "1.1.0"}
+    assert response.headers["Cache-Control"] == "no-store, no-cache, must-revalidate, max-age=0"
+    assert response.headers["X-QR-Generator-Version"] == "1.1.0"
 
 
 def test_api_generates_png_with_requested_color():

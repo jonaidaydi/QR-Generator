@@ -165,4 +165,5 @@ saveButton.addEventListener("click", () => {
   link.click();
 });
 
+transparentInput.checked = true;
 applyColor("#000000");

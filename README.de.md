@@ -23,6 +23,8 @@ gespeicherte Zieladresse erreichbar bleibt.
 4. Hohe Fehlerkorrektur für zuverlässiges Scannen
 5. Validierung vollständiger HTTP und HTTPS Adressen
 6. Schutz vor unbeabsichtigtem Überschreiben vorhandener Dateien
+7. Lokale Weboberfläche mit Vorschau und Farbauswahl
+8. PNG Download mit dem festen Dateinamen `qr-code.png`
 
 ## Voraussetzungen
 
@@ -37,6 +39,28 @@ python -m pip install -r requirements.txt
 ```
 
 ## Verwendung
+
+### Weboberfläche
+
+Die lokale Web App starten:
+
+```powershell
+python .\web_app.py
+```
+
+Im Browser `http://127.0.0.1:5000` öffnen. Eine vollständige URL eingeben, die
+QR Farbe über das Spektrum, RGB Werte, den Hex Farbcode oder die Presets wählen
+und **Generate** auswählen. Mit **Save QR code** wird `qr-code.png` gespeichert.
+
+Die Weboberfläche läuft lokal. Eingegebene URLs werden nicht an einen externen
+QR Dienst gesendet.
+
+### Tests
+
+```powershell
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+```
 
 ### Interaktiver Start
 
@@ -92,7 +116,12 @@ sollte erhalten bleiben.
 
 ```text
 qr_generator.py
+web_app.py
+templates/
+static/
+tests/
 requirements.txt
+requirements-dev.txt
 README.md
 README.de.md
 .gitignore

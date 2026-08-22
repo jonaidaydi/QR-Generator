@@ -22,6 +22,8 @@ stored target address is available.
 4. High error correction for reliable scanning
 5. Validation of complete HTTP and HTTPS addresses
 6. Protection against accidental overwriting of existing files
+7. Local web interface with a live preview and color controls
+8. PNG download with a fixed `qr-code.png` filename
 
 ## Requirements
 
@@ -36,6 +38,28 @@ python -m pip install -r requirements.txt
 ```
 
 ## Usage
+
+### Web interface
+
+Start the local web app:
+
+```powershell
+python .\web_app.py
+```
+
+Open `http://127.0.0.1:5000` in a browser. Enter a complete URL, choose the QR
+color using the spectrum, RGB values, hex code, or quick presets, and select
+**Generate**. Use **Save QR code** to download `qr-code.png`.
+
+The web interface runs locally. Entered URLs are not sent to an external QR
+service.
+
+### Tests
+
+```powershell
+python -m pip install -r requirements-dev.txt
+python -m pytest -q
+```
 
 ### Interactive mode
 
@@ -87,7 +111,12 @@ layout. Preserve the clear margin around the code.
 
 ```text
 qr_generator.py
+web_app.py
+templates/
+static/
+tests/
 requirements.txt
+requirements-dev.txt
 README.md
 README.de.md
 .gitignore

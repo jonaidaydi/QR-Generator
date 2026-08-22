@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Create static QR codes locally without tracking or redirects.">
+    <title>QR Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">LOCAL QR TOOL</p>
+        <h1 id="page-title">Turn any link into a QR code.</h1>
+        <p class="lede">Direct, private and permanent. No tracking, advertising or redirect service.</p>
+        <ul class="privacy-list" aria-label="Privacy features">
+          <li>Runs on your computer</li>
+          <li>Encodes the URL directly</li>
+          <li>Exports a ready to use PNG</li>
+        </ul>
+      </section>
+
+      <section class="generator-card" aria-label="QR code generator">
+        <form id="qr-form" novalidate>
+          <div class="field-group">
+            <label for="url">Link URL</label>
+            <div class="url-row">
+              <input id="url" name="url" type="url" inputmode="url" autocomplete="url"
+                     placeholder="https://example.com" required>
+              <button class="primary-button" type="submit">Generate</button>
+            </div>
+            <p id="form-message" class="message" role="status" aria-live="polite">Enter a complete HTTP or HTTPS address.</p>
+          </div>
+
+          <div class="workspace">
+            <div class="controls">
+              <div class="control-heading">
+                <div>
+                  <p class="section-label">QR COLOR</p>
+                  <h2>Choose your color</h2>
+                </div>
+                <span id="color-swatch" class="color-swatch" aria-hidden="true"></span>
+              </div>
+
+              <div class="color-tool">
+                <label class="picker-label" for="color-picker">Color wheel</label>
+                <div class="color-wheel">
+                  <input id="color-picker" class="color-picker" type="color" value="#000000"
+                         aria-label="Color wheel">
+                  <span class="wheel-center" aria-hidden="true"></span>
+                </div>
+                <p>Select the wheel to open the full color spectrum.</p>
+              </div>
+
+              <div class="preset-row" aria-label="Quick color presets">
+                <button class="preset is-active" type="button" data-color="#000000">
+                  <span class="preset-dot black"></span>Black
+                </button>
+                <button class="preset" type="button" data-color="#FFFFFF">
+                  <span class="preset-dot white"></span>White
+                </button>
+              </div>
+
+              <div class="rgb-grid">
+                <label>R<input id="red" type="number" min="0" max="255" value="0"></label>
+                <label>G<input id="green" type="number" min="0" max="255" value="0"></label>
+                <label>B<input id="blue" type="number" min="0" max="255" value="0"></label>
+              </div>
+
+              <label class="hex-field" for="hex-color">
+                Hex color
+                <input id="hex-color" type="text" value="#000000" maxlength="7" spellcheck="false">
+              </label>
+
+              <label class="toggle-row" for="transparent">
+                <span>
+                  <strong>Transparent background</strong>
+                  <small>Useful for placing the PNG on a layout</small>
+                </span>
+                <input id="transparent" type="checkbox">
+              </label>
+            </div>
+
+            <div class="preview-panel">
+              <p class="section-label">PREVIEW</p>
+              <div id="preview-frame" class="preview-frame">
+                <div id="empty-preview" class="empty-preview">
+                  <span class="empty-icon" aria-hidden="true"></span>
+                  <p>Your QR code will appear here</p>
+                </div>
+                <img id="qr-preview" alt="Generated QR code preview" hidden>
+              </div>
+              <button id="save-button" class="save-button" type="button" disabled>Save QR code</button>
+              <p class="save-note">PNG file named <code>qr-code.png</code></p>
+            </div>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

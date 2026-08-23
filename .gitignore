@@ -1,12 +1,12 @@
-.venv/
-__pycache__/
-*.py[cod]
-*.png
-*.svg
-!static/icons/
-!static/icons/icon-*.png
-!docs/screenshots/
+node_modules/
+.DS_Store
+*.log
+
+# Locally generated QR files
+qr-code.png
+
+# Project assets remain tracked
+!static/icons/*.png
+!static/icons/*.svg
 !docs/screenshots/*.png
-__pycache__/
-.pytest_cache/
 

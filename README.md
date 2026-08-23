@@ -2,149 +2,72 @@
 
 English | [Deutsch](README.de.md)
 
-A compact Python generator for static QR codes. Each target address is stored
-directly in the code. There is no redirect service, tracking, or advertising.
+A fast, installable QR code generator that runs entirely in the browser. URLs
+are encoded directly without tracking, advertising, redirects, accounts, or an
+external QR service.
+
+## Version 2
+
+Version 2 introduces a standalone browser application with a compact black and
+orange interface. It replaces the local Python web server used in version 1.
+The earlier implementation remains available through the Git history and the
+version 1 release.
 
 ## Preview
 
-![QR Generator web interface](docs/screenshots/qr-generator-preview.png)
-
-![QR Generator color customization](docs/screenshots/qr-generator-color-preview.png)
-
-![QR Generator dark mode](docs/screenshots/qr-generator-dark-preview.png)
-
-## Overview
-
-The generator creates QR codes for complete HTTP and HTTPS addresses. Output is
-available as PNG or SVG. PNG files can use either a white or transparent
-background.
-
-A generated QR code does not expire. It remains functional as long as the
-stored target address is available.
+![QR Generator](docs/screenshots/qr-generator-v2.png)
 
 ## Features
 
-1. Direct storage of the target address
-2. PNG and SVG output
-3. Optional transparent PNG background
-4. High error correction for reliable scanning
-5. Validation of complete HTTP and HTTPS addresses
-6. Protection against accidental overwriting of existing files
-7. Local web interface with a live preview and color controls
-8. PNG download with a fixed `qr-code.png` filename
-9. Transparent favicon, Apple touch icon, and PWA icons
-10. Persistent light and dark interface themes
-11. Animated monochrome particle background
-12. Interactive color wheel with pointer and keyboard controls
+1. Fully local QR generation in the browser
+2. Automatic HTTPS completion
+3. Live preview after the first generation
+4. Interactive color wheel
+5. Native color picker, RGB values, hex input, black and white presets
+6. Transparent PNG background enabled by default
+7. High error correction for reliable scanning
+8. One click PNG download as `qr-code.png`
+9. Responsive desktop, Android and iPhone layout
+10. Installable PWA with offline application shell
+11. Keyboard accessible controls and reduced motion support
 
-## Requirements
+## Use the app
 
-Python 3.10 or newer is recommended.
-
-## Quick start
+Open `index.html` through a local web server. For example:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+npx serve .
 ```
 
-## Usage
+Then open the local address shown in the terminal. Enter a web address, select
+**Generate**, customize the QR color and transparency, and select **Save**.
 
-### Web interface
+The app also works as a static site on GitHub Pages or any other static host.
 
-Start the local web app:
+## Development
+
+Node.js 18 or newer is required for rebuilding the bundled JavaScript.
 
 ```powershell
-python .\web_app.py
+npm install
+npm run check
 ```
 
-Open `http://127.0.0.1:5000` in a browser. Enter a web address, choose the QR
-color using the spectrum, RGB values, hex code, or quick presets, and select
-**Generate**. Use **Save QR code** to download `qr-code.png`. When no protocol
-is entered, the app automatically adds `https://`. Transparent output is
-enabled by default. After the first generation, color and transparency changes
-update the preview automatically.
-
-The web interface runs locally. Entered URLs are not sent to an external QR
-service.
-
-### Tests
-
-```powershell
-python -m pip install -r requirements-dev.txt
-python -m pytest -q
-```
-
-<details>
-<summary>Optional command line usage</summary>
-
-### Interactive mode
-
-```powershell
-python .\qr_generator.py https://example.com
-```
-
-For PNG output, the program asks whether the background should be transparent.
-
-### Transparent PNG
-
-```powershell
-python .\qr_generator.py https://example.com --transparent true -o example_qr.png
-```
-
-### PNG with a white background
-
-```powershell
-python .\qr_generator.py https://example.com --transparent false -o example_qr.png
-```
-
-### Scalable SVG
-
-```powershell
-python .\qr_generator.py https://example.com -f svg -o example_qr.svg
-```
-
-### Replace an existing file
-
-```powershell
-python .\qr_generator.py https://example.com -o example_qr.png --force
-```
-
-</details>
+`npm run check` rebuilds the browser bundle and runs the URL normalization
+tests.
 
 ## Privacy
 
-The documentation and source code use only `example.com` as a placeholder.
-Real addresses are provided only when running the program locally.
+The source code and documentation contain only `example.com` as a placeholder.
+Entered addresses never leave the browser. Generated files are downloaded
+locally and are excluded from Git by default.
 
-Generated PNG and SVG files are excluded from Git commits by `.gitignore`.
-Before publishing, review the planned commit with `git show`.
+## QR code lifetime
 
-## Scanning reliability
-
-For reliable recognition, display the QR code in a dark color on a calm, light
-background. Transparent PNG files require sufficient contrast in the final
-layout. Preserve the clear margin around the code.
-
-## Project structure
-
-```text
-qr_generator.py
-web_app.py
-templates/
-static/
-tools/
-tests/
-docs/
-requirements.txt
-requirements-dev.txt
-README.md
-README.de.md
-.gitignore
-```
+The generated QR code has no expiration date because the destination is stored
+directly in the image. It continues to work while the encoded address remains
+available.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for the
-full terms.
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

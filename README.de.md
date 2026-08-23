@@ -2,154 +2,73 @@
 
 [English](README.md) | Deutsch
 
-Ein kompakter Python Generator für statische QR Codes. Jede Zieladresse wird
-direkt im Code gespeichert. Es gibt keinen Weiterleitungsdienst, kein Tracking
-und keine Werbung.
+Ein schneller und installierbarer QR Code Generator, der vollständig im Browser
+läuft. Adressen werden direkt gespeichert. Es gibt kein Tracking, keine Werbung,
+keine Weiterleitung, kein Benutzerkonto und keinen externen QR Dienst.
+
+## Version 2
+
+Version 2 führt eine eigenständige Browser App mit kompakter schwarzer und
+oranger Oberfläche ein. Sie ersetzt den lokalen Python Webserver aus Version 1.
+Die frühere Umsetzung bleibt über die Git Historie und das Release der Version 1
+verfügbar.
 
 ## Vorschau
 
-![Weboberfläche des QR Generators](docs/screenshots/qr-generator-preview.png)
-
-![Farbanpassung im QR Generator](docs/screenshots/qr-generator-color-preview.png)
-
-![Dark Mode des QR Generators](docs/screenshots/qr-generator-dark-preview.png)
-
-## Überblick
-
-Der Generator erstellt QR Codes für vollständige HTTP und HTTPS Adressen. Die
-Ausgabe ist als PNG oder SVG möglich. PNG Dateien können mit einem weißen oder
-transparenten Hintergrund erzeugt werden.
-
-Ein erzeugter QR Code besitzt kein Ablaufdatum. Er funktioniert, solange die
-gespeicherte Zieladresse erreichbar bleibt.
+![QR Generator](docs/screenshots/qr-generator-v2.png)
 
 ## Funktionen
 
-1. Direkte Speicherung der Zieladresse
-2. Ausgabe als PNG oder SVG
-3. Optional transparenter PNG Hintergrund
-4. Hohe Fehlerkorrektur für zuverlässiges Scannen
-5. Validierung vollständiger HTTP und HTTPS Adressen
-6. Schutz vor unbeabsichtigtem Überschreiben vorhandener Dateien
-7. Lokale Weboberfläche mit Vorschau und Farbauswahl
-8. PNG Download mit dem festen Dateinamen `qr-code.png`
-9. Transparentes Favicon, Apple Touch Icon und PWA Icons
-10. Dauerhaft gespeicherter heller und dunkler Darstellungsmodus
-11. Animierter monochromer Partikelhintergrund
-12. Interaktives Farbrad mit Maus und Tastatursteuerung
+1. Vollständig lokale QR Erzeugung im Browser
+2. Automatische Ergänzung von HTTPS
+3. Live Vorschau nach der ersten Generierung
+4. Interaktives Farbrad
+5. System Farbauswahl, RGB Werte, Hex Eingabe und Schwarz Weiß Presets
+6. Transparenter PNG Hintergrund ist standardmäßig aktiviert
+7. Hohe Fehlerkorrektur für zuverlässiges Scannen
+8. PNG Download als `qr-code.png`
+9. Responsives Layout für Desktop, Android und iPhone
+10. Installierbare PWA mit offline verfügbarem App Gerüst
+11. Bedienung per Tastatur und Unterstützung reduzierter Bewegung
 
-## Voraussetzungen
+## App verwenden
 
-Python 3.10 oder neuer wird empfohlen.
-
-## Schnellstart
+`index.html` über einen lokalen Webserver öffnen. Zum Beispiel:
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+npx serve .
 ```
 
-## Verwendung
+Anschließend die im Terminal angezeigte Adresse öffnen. Eine Webadresse eingeben,
+**Generate** auswählen, Farbe und Transparenz anpassen und mit **Save** speichern.
 
-### Weboberfläche
+Die App kann ebenfalls als statische Seite über GitHub Pages oder jeden anderen
+statischen Webhost betrieben werden.
 
-Die lokale Web App starten:
+## Entwicklung
+
+Node.js 18 oder neuer wird benötigt, um das JavaScript Paket neu zu erstellen.
 
 ```powershell
-python .\web_app.py
+npm install
+npm run check
 ```
 
-Im Browser `http://127.0.0.1:5000` öffnen. Eine Webadresse eingeben, die QR Farbe
-über das Spektrum, RGB Werte, den Hex Farbcode oder die Presets wählen und
-**Generate** auswählen. Mit **Save QR code** wird `qr-code.png` gespeichert.
-Wenn kein Protokoll angegeben ist, ergänzt die App automatisch `https://`.
-Transparente Ausgabe ist standardmäßig aktiviert. Nach der ersten Generierung
-aktualisieren Änderungen an Farbe und Transparenz die Vorschau automatisch.
-
-Die Weboberfläche läuft lokal. Eingegebene URLs werden nicht an einen externen
-QR Dienst gesendet.
-
-### Tests
-
-```powershell
-python -m pip install -r requirements-dev.txt
-python -m pytest -q
-```
-
-<details>
-<summary>Optionale Verwendung über die Kommandozeile</summary>
-
-### Interaktiver Start
-
-```powershell
-python .\qr_generator.py https://example.com
-```
-
-Bei einer PNG Ausgabe fragt das Programm, ob der Hintergrund transparent sein
-soll.
-
-### Transparentes PNG
-
-```powershell
-python .\qr_generator.py https://example.com --transparent true -o beispiel_qr.png
-```
-
-### PNG mit weißem Hintergrund
-
-```powershell
-python .\qr_generator.py https://example.com --transparent false -o beispiel_qr.png
-```
-
-### Skalierbares SVG
-
-```powershell
-python .\qr_generator.py https://example.com -f svg -o beispiel_qr.svg
-```
-
-### Vorhandene Datei ersetzen
-
-```powershell
-python .\qr_generator.py https://example.com -o beispiel_qr.png --force
-```
-
-</details>
+`npm run check` erstellt das Browser Paket neu und testet die automatische
+Aufbereitung von Webadressen.
 
 ## Datenschutz
 
-Die Dokumentation und der Quellcode verwenden ausschließlich `example.com` als
-Platzhalter. Reale Adressen müssen nur beim lokalen Programmaufruf angegeben
-werden.
+Quellcode und Dokumentation enthalten ausschließlich `example.com` als
+Platzhalter. Eingegebene Adressen verlassen den Browser nicht. Erzeugte Dateien
+werden lokal gespeichert und standardmäßig von Git ausgeschlossen.
 
-Erzeugte PNG und SVG Dateien werden durch `.gitignore` nicht in Git Commits
-aufgenommen. Vor jeder Veröffentlichung sollte der geplante Commit trotzdem mit
-`git show` geprüft werden.
+## Gültigkeit des QR Codes
 
-## Scanqualität
-
-Für eine zuverlässige Erkennung sollte der QR Code dunkel dargestellt werden
-und auf einem ruhigen, hellen Hintergrund stehen. Bei transparenten PNG Dateien
-muss das spätere Layout ausreichend Kontrast bieten. Der freie Rand um den Code
-sollte erhalten bleiben.
-
-## Projektstruktur
-
-```text
-qr_generator.py
-web_app.py
-templates/
-static/
-tools/
-tests/
-docs/
-requirements.txt
-requirements-dev.txt
-README.md
-README.de.md
-.gitignore
-```
+Der erzeugte QR Code besitzt kein Ablaufdatum, weil die Zieladresse direkt im
+Bild gespeichert wird. Er funktioniert, solange die gespeicherte Adresse
+erreichbar bleibt.
 
 ## Lizenz
 
-Dieses Projekt steht unter der MIT License. Die vollständigen Bedingungen stehen
-in der Datei [LICENSE](LICENSE).
+Dieses Projekt steht unter der MIT License. Siehe [LICENSE](LICENSE).

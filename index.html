@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#090909">
+    <meta name="description" content="Create permanent QR codes locally in your browser.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>QR Generator</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./static/icons/icon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./static/icons/icon-180.png">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./assets/styles.css">
+    <script src="./assets/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#generator">Skip to generator</a>
+
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="QR Generator home">
+        <img src="./static/icons/qr-logo.svg" alt="" width="44" height="44">
+        <span>QR Generator</span>
+      </a>
+      <a class="github-button" href="https://github.com/jonaidaydi/QR-Generator" target="_blank" rel="noopener noreferrer" aria-label="Open this project on GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.02c-3.23.7-3.91-1.37-3.91-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.72 1.26 3.38.96.1-.75.4-1.26.74-1.55-2.58-.3-5.29-1.3-5.29-5.69 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.06 0 0 .97-.31 3.16 1.18A10.9 10.9 0 0 1 12 6.3c.98 0 1.95.13 2.86.39 2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.4-2.72 5.39-5.31 5.68.42.36.79 1.07.79 2.16v3.03c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+      </a>
+    </header>
+
+    <main id="generator" class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">QR code generator</p>
+        <h1 id="page-title">Link to QR. Instantly.</h1>
+      </section>
+
+      <form id="qr-form" class="generator-panel" novalidate>
+        <section class="controls" aria-label="QR settings">
+          <label class="field" for="url">
+            <span>Link URL</span>
+            <div class="url-row">
+              <input id="url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="example.com" required>
+              <button class="primary-button" type="submit">Generate</button>
+            </div>
+            <p id="qr-message" class="message" role="status" aria-live="polite">HTTPS is added automatically.</p>
+          </label>
+
+          <div class="control-title">
+            <div>
+              <p class="eyebrow">Color</p>
+              <h2>Choose your QR color</h2>
+            </div>
+            <input id="native-color" class="native-picker" type="color" value="#000000" aria-label="Open system color picker">
+          </div>
+
+          <div class="color-area">
+            <div class="wheel-wrap">
+              <div id="color-wheel" class="color-wheel" role="slider" tabindex="0" aria-label="Color wheel" aria-valuetext="#000000"></div>
+              <span id="wheel-marker" class="wheel-marker" aria-hidden="true"></span>
+            </div>
+            <div class="color-fields">
+              <div class="preset-row" aria-label="Color presets">
+                <button class="preset active" type="button" data-color="#000000">Black</button>
+                <button class="preset" type="button" data-color="#FFFFFF">White</button>
+              </div>
+              <div class="rgb-row">
+                <label>R<input id="red" type="number" min="0" max="255" value="0"></label>
+                <label>G<input id="green" type="number" min="0" max="255" value="0"></label>
+                <label>B<input id="blue" type="number" min="0" max="255" value="0"></label>
+              </div>
+              <label class="field compact-field" for="hex-color">
+                <span>Hex</span>
+                <input id="hex-color" type="text" value="#000000" maxlength="7" spellcheck="false">
+              </label>
+            </div>
+          </div>
+
+          <label class="toggle-row" for="transparent">
+            <span>
+              <strong>Transparent background</strong>
+              <small>Enabled by default for flexible PNG use</small>
+            </span>
+            <input id="transparent" type="checkbox" checked>
+          </label>
+        </section>
+
+        <section class="preview-panel" aria-label="QR code preview">
+          <p class="eyebrow preview-label">Live preview</p>
+          <div class="preview-square">
+            <div id="qr-empty" class="empty-state"><b>QR</b><span>Your code will appear here.</span></div>
+            <canvas id="qr-canvas" width="640" height="640" aria-label="Generated QR code" hidden></canvas>
+          </div>
+          <button id="save-qr" class="primary-button save-button" type="button" disabled>Save</button>
+        </section>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <span>Generated locally. No tracking, advertising or redirect service.</span>
+      <a class="github-link" href="https://github.com/jonaidaydi/QR-Generator" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.02c-3.23.7-3.91-1.37-3.91-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.77 2.72 1.26 3.38.96.1-.75.4-1.26.74-1.55-2.58-.3-5.29-1.3-5.29-5.69 0-1.26.45-2.29 1.19-3.1-.12-.3-.52-1.47.11-3.06 0 0 .97-.31 3.16 1.18A10.9 10.9 0 0 1 12 6.3c.98 0 1.95.13 2.86.39 2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.4-2.72 5.39-5.31 5.68.42.36.79 1.07.79 2.16v3.03c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </footer>
+  </body>
+</html>

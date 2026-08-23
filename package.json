@@ -1,0 +1,22 @@
+{
+  "name": "qr-generator",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A private, installable QR code generator that runs entirely in the browser.",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild ./src/app.js --bundle --format=iife --minify --outfile=./assets/app.js",
+    "icons": "node ./scripts/generate-icons.mjs",
+    "check": "npm run build && node --test"
+  },
+  "dependencies": {
+    "pngjs": "^5.0.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.9"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

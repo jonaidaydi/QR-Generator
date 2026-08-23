@@ -310,6 +310,9 @@ input:focus, button:focus-visible, a:focus-visible, .color-wheel:focus-visible {
   .generator-panel { grid-template-columns: 1fr; }
   .preview-panel { border-top: 1px solid var(--line); border-left: 0; }
 }
+@media (min-width: 981px) {
+  body { overflow: hidden; }
+}
 @media (max-width: 620px) {
   .site-header { min-height: 66px; padding-bottom: 10px; }
   .brand img { width: 42px; height: 42px; }

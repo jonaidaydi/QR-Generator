@@ -1,4 +1,4 @@
-const CACHE_NAME = "qr-generator-v2";
+const CACHE_NAME = "qr-generator-v2.0.1";
 const APP_SHELL = [
   "./",
   "./index.html",
